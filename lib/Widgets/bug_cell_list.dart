@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class ItemCellList extends StatelessWidget {
-  const ItemCellList({required this.onTap, Key? key, required this.itemList, required this.isCartCell})
+  const ItemCellList({required this.onTap, Key? key, required this.itemList})
       : super(key: key);
 
   final Function onTap;
   final List<Bug> itemList;
-  final bool isCartCell;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +21,6 @@ class ItemCellList extends StatelessWidget {
         return ItemCell(
           item: item,
           onTap: onTap,
-          isCartCell: isCartCell,
         );
       },
       separatorBuilder: (context, index) {
