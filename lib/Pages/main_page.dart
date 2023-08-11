@@ -1,7 +1,6 @@
 import 'package:bug_trucker/DataTypes/bug.dart';
 import 'package:bug_trucker/Pages/main_page_bloc.dart';
 import 'package:bug_trucker/Widgets/bug_cell_list.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {

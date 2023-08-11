@@ -1,38 +1,40 @@
+import 'package:bug_trucker/DataTypes/completion_status.dart';
+
 class Bug {
   int? id;
   String? title;
-  double? price;
-  String? category;
-  String? description;
+  DateTime? postedDate;
+  CompletionStatus? status;
+  String? reporter;
   String? image;
-  Map<String, dynamic>? rating;
+  String? description;
 
   Bug(
       this.id,
       this.title,
-      this.price,
-      this.category,
-      this.description,
+      this.postedDate,
+      this.status,
+      this.reporter,
       this.image,
-      this.rating,
+      this.description,
       );
 
   Bug.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         title = json['title'],
-        price = double.parse(json['price'].toString()),
-        category = json['category'],
+        postedDate = DateTime.tryParse(json['postedDate'].toString()),
+        status = json['status'],
         description = json['description'],
         image = json['image'],
-        rating = json['rating'];
+        reporter = json['reporter'];
 
   Map<String, dynamic> toJson() => {
     'id': id,
     'title': title,
-    'price': price,
-    'category': category,
+    'price': postedDate,
+    'status': status,
     'description': description,
     'image': image,
-    'rating': rating,
+    'reporter': reporter,
   };
 }
