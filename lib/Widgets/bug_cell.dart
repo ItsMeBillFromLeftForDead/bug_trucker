@@ -13,61 +13,50 @@ class ItemCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // `   final sound = switch (pet) {
-    //        (Dog d) => '${d.name}: Woof!',
-    //    (Cat c) => '${c.name}: Meow!',
-    //    };`
-    //    var dayNumber = switch (dayOfWeek) {
-    //    'Monday' => 1,
-    //    'Tuesday' => 2,
-    //    'Wednesday' => 3,
-    //    'Thursday' => 4,
-    //    'Friday' => 5,
-    //    'Saturday' => 6,
-    //    'Sunday' => 7,
-    //    _ => 10, //Default value
-    //    };
-
-    // Color barColor = ;
     return Card(
-      child: Row(
-        children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                item.title!,
-                textAlign: TextAlign.left,
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Image.network(
-                      item.image!,
-                      height: 40,
-                      width: 40,
+      child: IntrinsicHeight(
+        child: Row(
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  item.title!,
+                  textAlign: TextAlign.left,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: FadeInImage.assetNetwork(
+                          placeholder: 'assets/place_holder.png',
+                          image: item.image!,
+                        height: 40,
+                        width: 40,
+                      ),
                     ),
-                  ),
-                  Text(item.reporter!),
-                  Text(item.postedDate!.toString()),
-                ],
-              ),
-            ],
-          ),
-          Container(
-            // height: 42.0,
-            width: 2.0,
-            color: switch (item.status) {
+                    Text(item.reporter!),
+                    Text(item.postedDate!.toString()),
+                  ],
+                ),
+              ],
+            ),
+            Spacer(),
+
+            Container(
+              height: double.infinity,
+              width: 20.0,
+              color: switch (item.status) {
     CompletionStatus.completed => Colors.green,
     CompletionStatus.inProgress => Colors.orange,
     CompletionStatus.incomplete => Colors.red,
     _ => Colors.red,
     },
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
