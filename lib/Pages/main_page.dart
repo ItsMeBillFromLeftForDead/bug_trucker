@@ -1,4 +1,5 @@
 import 'package:bug_trucker/DataTypes/bug.dart';
+import 'package:bug_trucker/Dialogs/add_bug_dialog.dart';
 import 'package:bug_trucker/Pages/main_page_bloc.dart';
 import 'package:bug_trucker/Widgets/bug_cell_list.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,6 @@ class _MainPageState extends State<MainPage> {
           children: [
             Spacer(),
             ElevatedButton(
-              child: Flexible(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -31,8 +31,7 @@ class _MainPageState extends State<MainPage> {
                     Text('New Bug'),
                   ],
                 ),
-              ),
-              onPressed: () {},
+              onPressed: _showAddBugDialog,
             ),
           ],
         ),
@@ -49,11 +48,18 @@ class _MainPageState extends State<MainPage> {
           stream: Stream.fromFuture(_bloc.getItems()),
           builder: (context, snapshot) {
             return ItemCellList(
-              isCartCell: false,
               itemList: snapshot.requireData,
               onTap: (item) {},
             );
           }),
     ));
+  }
+
+  _showAddBugDialog() {
+    showDialog(
+        context: context,
+        builder: (context) =>
+            CreateBugDialog(onCreate: _bloc.createNewBug))
+        .then((value) => setState(() {}));
   }
 }

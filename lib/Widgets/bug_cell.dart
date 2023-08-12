@@ -1,4 +1,5 @@
 import 'package:bug_trucker/DataTypes/bug.dart';
+import 'package:bug_trucker/DataTypes/completion_status.dart';
 import 'package:flutter/material.dart';
 
 class ItemCell extends StatelessWidget {
@@ -6,24 +7,17 @@ class ItemCell extends StatelessWidget {
     Key? key,
     required this.item,
     required this.onTap,
-    required this.isCartCell,
   }) : super(key: key);
   final Bug item;
   final Function onTap;
-  final bool isCartCell;
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Row(
-        children: [
-          Container(
-            child: Image.network(item.image!),
-            height: 100,
-            width: 100,
-          ),
-          Flexible(
-            child: Column(
+      child: IntrinsicHeight(
+        child: Row(
+          children: [
+            Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -31,13 +25,38 @@ class ItemCell extends StatelessWidget {
                   item.title!,
                   textAlign: TextAlign.left,
                 ),
-                if (!isCartCell)
-                  ElevatedButton(
-                      onPressed: () => onTap.call(item), child: Text('Add to Cart')),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: FadeInImage.assetNetwork(
+                          placeholder: 'assets/place_holder.png',
+                          image: item.image!,
+                        height: 40,
+                        width: 40,
+                      ),
+                    ),
+                    Text(item.reporter!),
+                    Text(item.postedDate!.toString()),
+                  ],
+                ),
               ],
             ),
-          ),
-        ],
+            Spacer(),
+
+            Container(
+              height: double.infinity,
+              width: 20.0,
+              color: switch (item.status) {
+    CompletionStatus.completed => Colors.green,
+    CompletionStatus.inProgress => Colors.orange,
+    CompletionStatus.incomplete => Colors.red,
+    _ => Colors.red,
+    },
+            )
+          ],
+        ),
       ),
     );
   }
