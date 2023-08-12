@@ -55,6 +55,10 @@ class _MainPageState extends State<MainPage> {
     ));
   }
 
+  _pushCartPage () {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => CartPage(_bloc.cartList)));
+  }
+
   _showAddBugDialog() {
     showDialog(
         context: context,
