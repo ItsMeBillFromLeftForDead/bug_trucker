@@ -1,4 +1,5 @@
 import 'package:bug_trucker/DataTypes/completion_status.dart';
+import 'package:bug_trucker/Dialogs/add_comment_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -25,6 +26,24 @@ class _BugInformationPageState extends State<BugInformationPage> {
 
     return MaterialApp(
         home: Scaffold(
+          bottomNavigationBar: BottomAppBar(
+            color: Colors.blue,
+            child: Row(
+              children: [
+                Spacer(),
+                ElevatedButton(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.add),
+                      Text('New Comment'),
+                    ],
+                  ),
+                  onPressed: _showAddCommentDialog,
+                ),
+              ],
+            ),
+          ),
       appBar: AppBar(
         leading: BackButton(
           onPressed: () => Navigator.of(context).pop(),
@@ -91,16 +110,26 @@ class _BugInformationPageState extends State<BugInformationPage> {
           ),
           Text(widget.bug.description!),
           Spacer(),
-          StreamBuilder<List<Comment>>(
-              initialData: [],
-              stream: Stream.fromFuture(_bloc.getComments()),
-              builder: (context, snapshot) {
-                return CommentCellList(
-                  itemList: snapshot.requireData,
-                );
-              }),
+          Expanded(
+            child: StreamBuilder<List<Comment>>(
+                initialData: [],
+                stream: Stream.fromFuture(_bloc.getComments()),
+                builder: (context, snapshot) {
+                  return CommentCellList(
+                    itemList: snapshot.requireData,
+                  );
+                }),
+          ),
         ],
       ),
     ));
+  }
+  
+  _showAddCommentDialog() {
+    showDialog(
+        context: context,
+        builder: (context) =>
+            AddCommentDialog(onCreate: _bloc.createNewComment, bug: widget.bug,))
+        .then((value) => setState(() {}));
   }
 }
