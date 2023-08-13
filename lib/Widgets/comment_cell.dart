@@ -37,7 +37,8 @@ class CommentCell extends StatelessWidget {
                       ),
                     ),
                     Text(item.description!),
-                    Text(item.postedDate!.toString()),
+                    //TODO space the date correctly
+                    // Text(item.postedDate!.toString()),
                   ],
                 ),
               ],

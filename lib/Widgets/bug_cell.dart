@@ -13,8 +13,8 @@ class ItemCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Inkwell(
-      onTap: onTap,
+    return GestureDetector(
+      onTap: () => onTap.call(item),
       child: Card(
         child: IntrinsicHeight(
           child: Row(

@@ -56,8 +56,8 @@ class _MainPageState extends State<MainPage> {
     ));
   }
 
-  _pushBugInformationPage () {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => BugInformationPage()));
+  _pushBugInformationPage (Bug bug) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => BugInformationPage(bug: bug)));
   }
 
   _showAddBugDialog() {

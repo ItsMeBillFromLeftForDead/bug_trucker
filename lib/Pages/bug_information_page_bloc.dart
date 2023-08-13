@@ -4,7 +4,12 @@ import 'package:bug_trucker/DataTypes/completion_status.dart';
 import '../DataTypes/comment.dart';
 
 class BugInformationPageBloc {
-  final List<Comment> _itemList = [Comment(1, 1, DateTime.now(), 'John Arbuckle', 'https://picsum.photos/250?image=9', 'You should fix it')];
+  final List<Comment> _itemList = [
+    Comment(1, 1, DateTime.now(), 'John Arbuckle',
+        'https://picsum.photos/250?image=9', 'You should fix it'),
+    Comment(1, 1, DateTime.now(), 'Sisyphus',
+        'https://cdn.discordapp.com/attachments/543086710901178379/1138181008798261368/hbrxqet5lxfb1.jpg', 'Shit is broken')
+  ];
 
   Future<List<Comment>> getComments() async {
     //TODO: ADD DATABASE STUFF HERE
