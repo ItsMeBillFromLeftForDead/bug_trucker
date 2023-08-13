@@ -1,5 +1,6 @@
 import 'package:bug_trucker/DataTypes/bug.dart';
 import 'package:bug_trucker/Dialogs/add_bug_dialog.dart';
+import 'package:bug_trucker/Pages/bug_information_page.dart';
 import 'package:bug_trucker/Pages/main_page_bloc.dart';
 import 'package:bug_trucker/Widgets/bug_cell_list.dart';
 import 'package:flutter/material.dart';
@@ -49,14 +50,14 @@ class _MainPageState extends State<MainPage> {
           builder: (context, snapshot) {
             return ItemCellList(
               itemList: snapshot.requireData,
-              onTap: (item) {},
+              onTap: _pushBugInformationPage,
             );
           }),
     ));
   }
 
-  _pushCartPage () {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => CartPage(_bloc.cartList)));
+  _pushBugInformationPage () {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => BugInformationPage()));
   }
 
   _showAddBugDialog() {
