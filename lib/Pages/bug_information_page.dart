@@ -24,10 +24,8 @@ class _BugInformationPageState extends State<BugInformationPage> {
   Widget build(BuildContext context) {
     CompletionStatus dropdownValue = widget.bug.status!;
 
-    return MaterialApp(
-        home: Scaffold(
+    return Scaffold(
           bottomNavigationBar: BottomAppBar(
-            color: Colors.blue,
             child: Row(
               children: [
                 Spacer(),
@@ -57,7 +55,6 @@ class _BugInformationPageState extends State<BugInformationPage> {
               value: dropdownValue,
               icon: const Icon(Icons.arrow_downward),
               elevation: 16,
-              style: const TextStyle(color: Colors.deepPurple),
               underline: Container(
                 height: 2,
                 color: Colors.deepPurpleAccent,
@@ -122,7 +119,7 @@ class _BugInformationPageState extends State<BugInformationPage> {
           ),
         ],
       ),
-    ));
+    );
   }
   
   _showAddCommentDialog() {
