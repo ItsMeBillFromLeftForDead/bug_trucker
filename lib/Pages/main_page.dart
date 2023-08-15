@@ -17,10 +17,8 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
+    return Scaffold(
       bottomNavigationBar: BottomAppBar(
-        color: Colors.blue,
         child: Row(
           children: [
             Spacer(),
@@ -53,7 +51,7 @@ class _MainPageState extends State<MainPage> {
               onTap: _pushBugInformationPage,
             );
           }),
-    ));
+    );
   }
 
   _pushBugInformationPage (Bug bug) {
