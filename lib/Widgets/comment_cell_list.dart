@@ -13,25 +13,25 @@ class CommentCellList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScrollablePositionedList.separated(
-      shrinkWrap: true,
-      physics: const ClampingScrollPhysics(),
-      itemCount: itemList.length,
-      itemBuilder: (context, index) {
-        Comment item = itemList[index];
-        return CommentCell(
-          item: item,
-        );
-      },
-      separatorBuilder: (context, index) {
-        return const Divider(
-          color: Colors.black54,
-          height: 8,
-          thickness: 1,
-          indent: 16,
-          endIndent: 16,
-        );
-      },
+    final ScrollController scrollController = ScrollController();
+    return Scrollbar(
+      controller: scrollController,
+      thickness: 10,
+      thumbVisibility: true,
+      trackVisibility: true,
+      child: ListView.builder(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        controller: scrollController,
+        shrinkWrap: true,
+        physics: const ClampingScrollPhysics(),
+        itemCount: itemList.length,
+        itemBuilder: (context, index) {
+          Comment item = itemList[index];
+          return CommentCell(
+            item: item,
+          );
+        },
+      ),
     );
   }
 }
