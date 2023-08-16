@@ -27,8 +27,8 @@ class CommentCell extends StatelessWidget {
                       child: FadeInImage.assetNetwork(
                         imageErrorBuilder: (context, error, StackTrace) {
                           return const Image(
-                              height: 100,
-                              width: 100,
+                              height: 40,
+                              width: 40,
                               image:
                               AssetImage('assets/place_holder.png'));
                         },

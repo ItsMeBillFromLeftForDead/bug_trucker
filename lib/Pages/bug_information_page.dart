@@ -97,6 +97,13 @@ class _BugInformationPageState extends State<BugInformationPage> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: FadeInImage.assetNetwork(
+                    imageErrorBuilder: (context, error, StackTrace) {
+                      return const Image(
+                          height: 40,
+                          width: 40,
+                          image:
+                          AssetImage('assets/place_holder.png'));
+                    },
                     placeholder: 'assets/place_holder.png',
                     image: widget.bug.image!,
                     height: 40,
