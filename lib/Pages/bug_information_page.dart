@@ -91,8 +91,9 @@ class _BugInformationPageState extends State<BugInformationPage> {
           Card(
             child: Row(
               children: [
-                Text('Reporter: ${widget.bug.reporter}'),
+                Text('Reporter: '),
                 Spacer(),
+                Text(widget.bug.reporter!),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: FadeInImage.assetNetwork(
@@ -121,7 +122,7 @@ class _BugInformationPageState extends State<BugInformationPage> {
       ),
     );
   }
-  
+
   _showAddCommentDialog() {
     showDialog(
         context: context,

@@ -12,7 +12,7 @@ void main() {
           ),
           textTheme: TextTheme(
             titleSmall: TextStyle(color: Colors.lime), //unknown
-            titleMedium: TextStyle(color: Colors.deepOrange), //dropdown
+            titleMedium: TextStyle(), //dropdown
             titleLarge: TextStyle(color: Colors.purple), //unknown
             bodySmall:TextStyle(color: Colors.lime),
             bodyMedium: TextStyle(fontSize: 18), //Text widget text
