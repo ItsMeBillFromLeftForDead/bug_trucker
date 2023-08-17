@@ -23,13 +23,13 @@ class _MainPageState extends State<MainPage> {
           children: [
             Spacer(),
             ElevatedButton(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.add),
-                    Text('New Bug'),
-                  ],
-                ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.add),
+                  Text('New Bug'),
+                ],
+              ),
               onPressed: _showAddBugDialog,
             ),
           ],
@@ -54,15 +54,15 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  _pushBugInformationPage (Bug bug) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => BugInformationPage(bug: bug)));
+  _pushBugInformationPage(Bug bug) {
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => BugInformationPage(bug: bug))).then((value) => setState(() {}));
   }
 
   _showAddBugDialog() {
     showDialog(
-        context: context,
-        builder: (context) =>
-            CreateBugDialog(onCreate: _bloc.createNewBug))
+            context: context,
+            builder: (context) => CreateBugDialog(onCreate: _bloc.createNewBug))
         .then((value) => setState(() {}));
   }
 }

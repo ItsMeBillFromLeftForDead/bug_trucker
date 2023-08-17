@@ -25,23 +25,23 @@ class _BugInformationPageState extends State<BugInformationPage> {
     CompletionStatus dropdownValue = widget.bug.status!;
 
     return Scaffold(
-          bottomNavigationBar: BottomAppBar(
-            child: Row(
-              children: [
-                Spacer(),
-                ElevatedButton(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.add),
-                      Text('New Comment'),
-                    ],
-                  ),
-                  onPressed: _showAddCommentDialog,
-                ),
-              ],
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          children: [
+            Spacer(),
+            ElevatedButton(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.add),
+                  Text('New Comment'),
+                ],
+              ),
+              onPressed: _showAddCommentDialog,
             ),
-          ),
+          ],
+        ),
+      ),
       appBar: AppBar(
         leading: BackButton(
           onPressed: () => Navigator.of(context).pop(),
@@ -51,62 +51,79 @@ class _BugInformationPageState extends State<BugInformationPage> {
       body: Column(
         children: [
           Card(
-            child: DropdownButton<CompletionStatus>(
-              value: dropdownValue,
-              icon: const Icon(Icons.arrow_downward),
-              elevation: 16,
-              underline: Container(
-                height: 2,
-                color: Colors.deepPurpleAccent,
-              ),
-              onChanged: (CompletionStatus? value) {
-                setState(() {
-                  dropdownValue = value!;
-                  widget.bug.status = value;
-                });
-              },
-              items: CompletionStatus.values
-                  .map<DropdownMenuItem<CompletionStatus>>(
-                      (CompletionStatus value) {
-                switch (value) {
-                  case CompletionStatus.completed:
-                    return DropdownMenuItem<CompletionStatus>(
-                      value: value,
-                      child: Text('Completed'),
-                    );
-                  case CompletionStatus.inProgress:
-                    return DropdownMenuItem<CompletionStatus>(
-                      value: value,
-                      child: Text('In Progress'),
-                    );
-                  case CompletionStatus.incomplete:
-                    return DropdownMenuItem<CompletionStatus>(
-                      value: value,
-                      child: Text('Incomplete'),
-                    );
-                }
-              }).toList(),
-            ),
-          ),
-          Card(
-            child: Row(
+            child: Column(
               children: [
-                Text('Reporter: ${widget.bug.reporter}'),
-                Spacer(),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: FadeInImage.assetNetwork(
-                    placeholder: 'assets/place_holder.png',
-                    image: widget.bug.image!,
-                    height: 40,
-                    width: 40,
+                DropdownButton<CompletionStatus>(
+                  value: dropdownValue,
+                  icon: const Icon(Icons.arrow_downward),
+                  elevation: 16,
+                  underline: Container(
+                    height: 2,
+                    color: Colors.deepPurpleAccent,
                   ),
+                  onChanged: (CompletionStatus? value) {
+                    setState(() {
+                      dropdownValue = value!;
+                      widget.bug.status = value;
+                    });
+                  },
+                  items: CompletionStatus.values
+                      .map<DropdownMenuItem<CompletionStatus>>(
+                          (CompletionStatus value) {
+                    switch (value) {
+                      case CompletionStatus.completed:
+                        return DropdownMenuItem<CompletionStatus>(
+                          value: value,
+                          child: Text('Completed'),
+                        );
+                      case CompletionStatus.inProgress:
+                        return DropdownMenuItem<CompletionStatus>(
+                          value: value,
+                          child: Text('In Progress'),
+                        );
+                      case CompletionStatus.incomplete:
+                        return DropdownMenuItem<CompletionStatus>(
+                          value: value,
+                          child: Text('Incomplete'),
+                        );
+                    }
+                  }).toList(),
                 ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text('Reporter: '),
+                    // Spacer(),
+                    Text(widget.bug.reporter!),
+                    // ClipRRect(
+                    //   borderRadius: BorderRadius.circular(8.0),
+                    //   child: FadeInImage.assetNetwork(
+                    //     imageErrorBuilder: (context, error, StackTrace) {
+                    //       return const Image(
+                    //           height: 40,
+                    //           width: 40,
+                    //           image:
+                    //           AssetImage('assets/place_holder.png'));
+                    //     },
+                    //     placeholder: 'assets/place_holder.png',
+                    //     image: widget.bug.image!,
+                    //     height: 40,
+                    //     width: 40,
+                    //   ),
+                    // ),
+                  ],
+                ),
+                Text(widget.bug.description!),
               ],
             ),
           ),
-          Text(widget.bug.description!),
-          Spacer(),
+          Divider(
+            height: 20,
+            thickness: 5,
+            color: Colors.black,
+            indent: 10,
+            endIndent: 10,
+          ),
           Expanded(
             child: StreamBuilder<List<Comment>>(
                 initialData: [],
@@ -121,12 +138,13 @@ class _BugInformationPageState extends State<BugInformationPage> {
       ),
     );
   }
-  
+
   _showAddCommentDialog() {
     showDialog(
         context: context,
-        builder: (context) =>
-            AddCommentDialog(onCreate: _bloc.createNewComment, bug: widget.bug,))
-        .then((value) => setState(() {}));
+        builder: (context) => AddCommentDialog(
+              onCreate: _bloc.createNewComment,
+              bug: widget.bug,
+            )).then((value) => setState(() {}));
   }
 }
