@@ -8,7 +8,7 @@ class BugInformationPageBloc {
     Comment(1, 1, DateTime.now(), 'John Arbuckle',
         'https://picsum.photos/250?image=9', 'You should fix it'),
     Comment(1, 1, DateTime.now(), 'Sisyphus',
-        'https://cdn.discordapp.com/attachments/543086710901178379/1138181008798261368/hbrxqet5lxfb1.jpg', 'Shit is broken')
+        'https://cdn.discordapp.com/attachments/543086710901178379/1138181008798261368/hbrxqet5lxfb1.jpg', 'Need to add a login page next')
   ];
 
   Future<List<Comment>> getComments() async {

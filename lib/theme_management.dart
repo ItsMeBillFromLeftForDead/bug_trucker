@@ -1,15 +1,16 @@
+import 'package:bug_trucker/DataTypes/color_schemes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyThemePreferences {
   static const THEME_KEY = "theme_key";
 
-  setTheme(bool value) async {
+  setTheme(ColorSchemes value) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setBool(THEME_KEY, value);
+    sharedPreferences.setString(THEME_KEY, value.toString());
   }
 
   getTheme() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.getBool(THEME_KEY) ?? false;
+    return sharedPreferences.getString(THEME_KEY) ?? ColorSchemes.blue.toString();
   }
 }

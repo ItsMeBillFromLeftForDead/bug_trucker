@@ -1,8 +1,10 @@
 import 'package:bug_trucker/DataTypes/bug.dart';
+import 'package:bug_trucker/DataTypes/color_schemes.dart';
 import 'package:bug_trucker/Dialogs/add_bug_dialog.dart';
 import 'package:bug_trucker/Pages/bug_information_page.dart';
 import 'package:bug_trucker/Pages/main_page_bloc.dart';
 import 'package:bug_trucker/Widgets/bug_cell_list.dart';
+import 'package:bug_trucker/model_theme.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -14,7 +16,7 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   // final SettingsPageBloc _bloc = SettingsPageBloc();
-
+  ModelTheme modelTheme = ModelTheme();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,19 +29,24 @@ class _SettingsPageState extends State<SettingsPage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
 
-        children: const [
+        children: [
           Text('App theme: '),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              CircleAvatar(
-                radius: 50,
+              InkWell(
+                onTap: () => _changeTheme(ColorSchemes.blue),
+                child: CircleAvatar(
+                  backgroundColor: Colors.blue,
+                  radius: 50,
+                ),
               ),
-              CircleAvatar(
-                radius: 50,
-              ),
-              CircleAvatar(
-                radius: 50,
+              InkWell(
+                onTap: () => _changeTheme(ColorSchemes.red),
+                child: CircleAvatar(
+                  backgroundColor: Colors.red,
+                  radius: 50,
+                ),
               ),
             ],
           ),
@@ -47,19 +54,28 @@ class _SettingsPageState extends State<SettingsPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              CircleAvatar(
-                radius: 50,
+              InkWell(
+                onTap: () => _changeTheme(ColorSchemes.green),
+                child: CircleAvatar(
+                  backgroundColor: Colors.green,
+                  radius: 50,
+                ),
               ),
-              CircleAvatar(
-                radius: 50,
-              ),
-              CircleAvatar(
-                radius: 50,
+              InkWell(
+                onTap: () => _changeTheme(ColorSchemes.gloriousPurple),
+                child: CircleAvatar(
+                  backgroundColor: Colors.purple,
+                  radius: 50,
+                ),
               ),
             ],
           ),
         ],
       ),
     );
+  }
+
+  _changeTheme(ColorSchemes scheme) {
+    modelTheme.changeTheme(scheme);
   }
 }
