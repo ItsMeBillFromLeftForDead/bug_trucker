@@ -32,7 +32,7 @@ class _BugInformationPageState extends State<BugInformationPage> {
             ElevatedButton(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: [
+                children: const [
                   Icon(Icons.add),
                   Text('New Comment'),
                 ],
@@ -126,7 +126,7 @@ class _BugInformationPageState extends State<BugInformationPage> {
           ),
           Expanded(
             child: StreamBuilder<List<Comment>>(
-                initialData: [],
+                initialData: const [],
                 stream: Stream.fromFuture(_bloc.getComments()),
                 builder: (context, snapshot) {
                   return CommentCellList(
