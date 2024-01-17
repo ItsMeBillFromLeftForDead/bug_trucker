@@ -1,10 +1,16 @@
 import 'package:bug_trucker/DataTypes/bug.dart';
 import 'package:bug_trucker/Dialogs/add_bug_dialog.dart';
-import 'package:bug_trucker/Pages/bug_information_page.dart';
-import 'package:bug_trucker/Pages/main_page_bloc.dart';
+import 'package:bug_trucker/Pages/bug_info_page/bug_info_bloc.dart';
+import 'package:bug_trucker/Pages/bug_info_page/bug_info_page.dart';
+import 'package:bug_trucker/Pages/main_page/main_bloc.dart';
+import 'package:bug_trucker/Pages/main_page/main_page_bloc.dart';
 import 'package:bug_trucker/Pages/settings_page.dart';
 import 'package:bug_trucker/Widgets/bug_cell_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'main_event.dart';
+import 'main_state.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key? key}) : super(key: key);
@@ -14,11 +20,11 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  final MainPageBloc _bloc = MainPageBloc();
-
   @override
   Widget build(BuildContext context) {
-    //TODO: add logged in user data here when that becomes availible
+    final MainBloc mainBloc = BlocProvider.of<MainBloc>(context);
+
+    //TODO: add logged in user data here when that becomes available
     final drawerHeader = UserAccountsDrawerHeader(
       accountName: Text(
         'John Arbuckle',
@@ -29,9 +35,7 @@ class _MainPageState extends State<MainPage> {
       currentAccountPicture: CircleAvatar(
         child: FadeInImage.assetNetwork(
           imageErrorBuilder: (context, error, StackTrace) {
-            return const Image(
-                image:
-                AssetImage('assets/place_holder.png'));
+            return const Image(image: AssetImage('assets/place_holder.png'));
           },
           placeholder: 'assets/place_holder.png',
           image: 'https://picsum.photos/250?image=9',
@@ -63,21 +67,29 @@ class _MainPageState extends State<MainPage> {
                   Text('New Bug'),
                 ],
               ),
-              onPressed: _showAddBugDialog,
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) =>  CreateBugDialog(
+                      onCreate: mainBloc.state.createNewBug,
+                    ),
+                ).then((value) => setState(() {}));
+              },
             ),
           ],
         ),
       ),
-      endDrawer:  Drawer(child: drawerItems,),
+      endDrawer: Drawer(
+        child: drawerItems,
+      ),
       appBar: AppBar(
         title: Text('COOL BUG FACTS'),
       ),
-      body: StreamBuilder<List<Bug>>(
-          initialData: [],
-          stream: Stream.fromFuture(_bloc.getItems()),
+      body: BlocBuilder<MainBloc, MainState>(
+          bloc: mainBloc,
           builder: (context, snapshot) {
             return ItemCellList(
-              itemList: snapshot.requireData,
+              itemList: snapshot.bugs,
               onTap: _pushBugInformationPage,
             );
           }),
@@ -85,19 +97,25 @@ class _MainPageState extends State<MainPage> {
   }
 
   _pushBugInformationPage(Bug bug) {
-    Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => BugInformationPage(bug: bug))).then((value) => setState(() {}));
+    Navigator.of(context)
+        .push(
+          MaterialPageRoute(
+            builder: (context) => BlocProvider<BugInfoBloc>(
+              create: (BuildContext context) => BugInfoBloc(),
+              child: BugInformationPage(bug: bug),
+            ),
+          ),
+        )
+        .then((value) => setState(() {}));
   }
 
   _pushSettingsPage() {
-    Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => SettingsPage())).then((value) => setState(() {}));
-  }
-
-  _showAddBugDialog() {
-    showDialog(
-            context: context,
-            builder: (context) => CreateBugDialog(onCreate: _bloc.createNewBug))
+    Navigator.of(context)
+        .push(
+          MaterialPageRoute(
+            builder: (context) => SettingsPage(),
+          ),
+        )
         .then((value) => setState(() {}));
   }
 }

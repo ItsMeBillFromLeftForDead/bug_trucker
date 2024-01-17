@@ -1,6 +1,8 @@
 import 'package:bug_trucker/DataTypes/color_schemes.dart';
-import 'package:bug_trucker/Pages/main_page.dart';
+import 'package:bug_trucker/Pages/main_page/main_bloc.dart';
+import 'package:bug_trucker/Pages/main_page/main_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import 'model_theme.dart';
@@ -124,7 +126,8 @@ void main() {
                   ),
                 ),
             },
-            home: MainPage(),
+            home: BlocProvider<MainBloc>(create: (BuildContext context) => MainBloc(),
+            child: MainPage()),
           );
         },
       ),

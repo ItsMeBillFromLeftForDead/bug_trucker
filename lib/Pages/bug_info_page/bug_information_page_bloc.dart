@@ -1,7 +1,7 @@
 import 'package:bug_trucker/DataTypes/bug.dart';
 import 'package:bug_trucker/DataTypes/completion_status.dart';
 
-import '../DataTypes/comment.dart';
+import '../../DataTypes/comment.dart';
 
 class BugInformationPageBloc {
   final List<Comment> _itemList = [

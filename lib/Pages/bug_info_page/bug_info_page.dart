@@ -1,11 +1,14 @@
 import 'package:bug_trucker/DataTypes/completion_status.dart';
 import 'package:bug_trucker/Dialogs/add_comment_dialog.dart';
+import 'package:bug_trucker/Pages/bug_info_page/bug_info_bloc.dart';
+import 'package:bug_trucker/Pages/bug_info_page/bug_info_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../DataTypes/bug.dart';
-import '../DataTypes/comment.dart';
-import '../Widgets/comment_cell_list.dart';
+import '../../DataTypes/bug.dart';
+import '../../DataTypes/comment.dart';
+import '../../Widgets/comment_cell_list.dart';
 import 'bug_information_page_bloc.dart';
 
 class BugInformationPage extends StatefulWidget {
@@ -18,11 +21,10 @@ class BugInformationPage extends StatefulWidget {
 }
 
 class _BugInformationPageState extends State<BugInformationPage> {
-  final BugInformationPageBloc _bloc = BugInformationPageBloc();
-
   @override
   Widget build(BuildContext context) {
     CompletionStatus dropdownValue = widget.bug.status!;
+    final BugInfoBloc bugBloc = BlocProvider.of<BugInfoBloc>(context);
 
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
@@ -37,7 +39,15 @@ class _BugInformationPageState extends State<BugInformationPage> {
                   Text('New Comment'),
                 ],
               ),
-              onPressed: _showAddCommentDialog,
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AddCommentDialog(
+                    onCreate: bugBloc.state.createNewComment,
+                    bug: widget.bug,
+                  ),
+                ).then((value) => setState(() {}));
+              },
             ),
           ],
         ),
@@ -125,12 +135,11 @@ class _BugInformationPageState extends State<BugInformationPage> {
             endIndent: 10,
           ),
           Expanded(
-            child: StreamBuilder<List<Comment>>(
-                initialData: const [],
-                stream: Stream.fromFuture(_bloc.getComments()),
+            child: BlocBuilder<BugInfoBloc, BugInfoState>(
+                bloc: bugBloc,
                 builder: (context, snapshot) {
                   return CommentCellList(
-                    itemList: snapshot.requireData,
+                    itemList: snapshot.comments,
                   );
                 }),
           ),
@@ -142,9 +151,12 @@ class _BugInformationPageState extends State<BugInformationPage> {
   _showAddCommentDialog() {
     showDialog(
         context: context,
-        builder: (context) => AddCommentDialog(
-              onCreate: _bloc.createNewComment,
+        builder: (context) => BlocProvider.value(
+            value: BlocProvider.of<BugInfoBloc>(context),
+            child: AddCommentDialog(
+              onCreate:
+                  BlocProvider.of<BugInfoBloc>(context).state.createNewComment,
               bug: widget.bug,
-            )).then((value) => setState(() {}));
+            ))).then((value) => setState(() {}));
   }
 }
