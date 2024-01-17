@@ -101,26 +101,25 @@ class _BugInformationPageState extends State<BugInformationPage> {
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Reporter: '),
-                    // Spacer(),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: FadeInImage.assetNetwork(
+                        imageErrorBuilder: (context, error, StackTrace) {
+                          return const Image(
+                              height: 40,
+                              width: 40,
+                              image:
+                              AssetImage('assets/place_holder.png'));
+                        },
+                        placeholder: 'assets/place_holder.png',
+                        image: widget.bug.image!,
+                        height: 40,
+                        width: 40,
+                      ),
+                    ),
                     Text(widget.bug.reporter!),
-                    // ClipRRect(
-                    //   borderRadius: BorderRadius.circular(8.0),
-                    //   child: FadeInImage.assetNetwork(
-                    //     imageErrorBuilder: (context, error, StackTrace) {
-                    //       return const Image(
-                    //           height: 40,
-                    //           width: 40,
-                    //           image:
-                    //           AssetImage('assets/place_holder.png'));
-                    //     },
-                    //     placeholder: 'assets/place_holder.png',
-                    //     image: widget.bug.image!,
-                    //     height: 40,
-                    //     width: 40,
-                    //   ),
-                    // ),
                   ],
                 ),
                 Text(widget.bug.description!),
@@ -139,24 +138,12 @@ class _BugInformationPageState extends State<BugInformationPage> {
                 bloc: bugBloc,
                 builder: (context, snapshot) {
                   return CommentCellList(
-                    itemList: snapshot.comments,
+                    itemList: snapshot.sortedCommentList(widget.bug.id!),
                   );
                 }),
           ),
         ],
       ),
     );
-  }
-
-  _showAddCommentDialog() {
-    showDialog(
-        context: context,
-        builder: (context) => BlocProvider.value(
-            value: BlocProvider.of<BugInfoBloc>(context),
-            child: AddCommentDialog(
-              onCreate:
-                  BlocProvider.of<BugInfoBloc>(context).state.createNewComment,
-              bug: widget.bug,
-            ))).then((value) => setState(() {}));
   }
 }

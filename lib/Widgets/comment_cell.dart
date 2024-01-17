@@ -13,9 +13,7 @@ class CommentCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: IntrinsicHeight(
-        child: Row(
-          children: [
-            Column(
+        child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -48,8 +46,6 @@ class CommentCell extends StatelessWidget {
                 Text(DateFormat('yyyy-MM-dd – kk:mm').format(item.postedDate!)),
               ],
             ),
-          ],
-        ),
       ),
     );
   }

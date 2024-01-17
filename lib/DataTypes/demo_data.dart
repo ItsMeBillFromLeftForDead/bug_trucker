@@ -31,7 +31,7 @@ final demoComments = [
 ];
 
 final demoBugs = [
-  Bug(1, 'bug', DateTime.now(), CompletionStatus.completed, 'John Arbuckle', 'https://picsum.photos/250?image=9', 'there is problem'),
-  Bug(2, 'bug', DateTime.now(), CompletionStatus.completed, 'John Arbuckle', 'https://picsum.photos/250?image=9', 'lorum ipsum left in app'),
-  Bug(3, 'bug', DateTime.now(), CompletionStatus.completed, 'John Arbuckle', 'https://picsum.photos/250?image=9', 'Add backend database instead of using demo data'),
+  Bug(1, 'BUG-001', DateTime.now(), CompletionStatus.completed, 'John Arbuckle', 'https://picsum.photos/250?image=9', 'there is problem'),
+  Bug(2, 'BUG-002', DateTime.now(), CompletionStatus.completed, 'John Arbuckle', 'https://picsum.photos/250?image=9', 'lorum ipsum left in app'),
+  Bug(3, 'BUG-003', DateTime.now(), CompletionStatus.completed, 'John Arbuckle', 'https://picsum.photos/250?image=9', 'Add backend database instead of using demo data'),
 ];
