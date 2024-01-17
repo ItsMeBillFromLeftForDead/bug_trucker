@@ -1,8 +1,8 @@
 import 'package:bug_trucker/DataTypes/bug.dart';
 import 'package:bug_trucker/DataTypes/color_schemes.dart';
 import 'package:bug_trucker/Dialogs/add_bug_dialog.dart';
-import 'package:bug_trucker/Pages/bug_information_page.dart';
-import 'package:bug_trucker/Pages/main_page_bloc.dart';
+import 'package:bug_trucker/Pages/bug_info_page/bug_info_page.dart';
+import 'package:bug_trucker/Pages/main_page/main_page_bloc.dart';
 import 'package:bug_trucker/Widgets/bug_cell_list.dart';
 import 'package:bug_trucker/model_theme.dart';
 import 'package:flutter/material.dart';
