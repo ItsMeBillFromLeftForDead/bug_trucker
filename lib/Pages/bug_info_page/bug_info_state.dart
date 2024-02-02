@@ -12,6 +12,10 @@ class BugInfoState {
     //TODO PUT CODE HERE
   }
 
+  List<Comment> sortedCommentList(int bugId) {
+    return comments.where((comment) => comment.bugId == bugId).toList();
+  }
+
   void createNewComment(Comment comment) {
     comments.add(comment);
   }

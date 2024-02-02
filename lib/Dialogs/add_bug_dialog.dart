@@ -15,7 +15,7 @@ class CreateBugDialog extends StatelessWidget {
     TextEditingController descriptionEditingController =
         TextEditingController();
     return AlertDialog(
-      title: const Text('Create a new Reminder'),
+      title: const Text('Create a new Bug'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
