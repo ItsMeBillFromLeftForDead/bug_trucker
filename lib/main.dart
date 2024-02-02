@@ -19,24 +19,20 @@ void main() {
           return MaterialApp(
             theme: switch (themeNotifier.currentTheme) {
               ColorSchemes.gloriousPurple => ThemeData(
+                canvasColor: Color(0xff8B5FBF),
                   scaffoldBackgroundColor: Color(0xff8B5FBF),
                   colorScheme: ColorScheme.fromSwatch().copyWith(
                     primary: Color(0xff643A71),
                     secondary: Color(0xff8B5FBF),
                     tertiary: Color(0xffD183C9),
                   ),
-                  textTheme: TextTheme(
-                    titleSmall: TextStyle(color: Colors.lime),
-                    //unknown
-                    titleMedium: TextStyle(),
-                    //dropdown
-                    titleLarge: TextStyle(color: Colors.purple),
-                    //unknown
-                    bodySmall: TextStyle(color: Colors.lime),
-                    bodyMedium: TextStyle(fontSize: 18),
-                    //Text widget text
-                    bodyLarge: TextStyle(color: Colors.purple),
-                  ),
+                textTheme: TextTheme(
+                  //dropdown
+                  titleLarge: TextStyle(color: Colors.black),
+                  bodyMedium: TextStyle(fontSize: 18),
+                  //Text widget text
+                  bodyLarge: TextStyle(color: Colors.white),
+                ),
                   bottomAppBarTheme:
                       BottomAppBarTheme(color: Color(0xff643A71)),
                   cardTheme: CardTheme(color: Color(0xffD183C9)),
@@ -47,6 +43,7 @@ void main() {
                   ),
                 ),
               ColorSchemes.red => ThemeData(
+                canvasColor: Color(0xff990033),
                   scaffoldBackgroundColor: Color(0xff990033),
                   colorScheme: ColorScheme.fromSwatch().copyWith(
                     primary: Color(0xff5F021F),
@@ -70,6 +67,7 @@ void main() {
                   ),
                 ),
               ColorSchemes.green => ThemeData(
+                canvasColor: Color(0xff7DD181),
                   scaffoldBackgroundColor: Color(0xff7DD181),
                   colorScheme: ColorScheme.fromSwatch().copyWith(
                     primary: Color(0xff4B7F52),
@@ -98,6 +96,7 @@ void main() {
                   ),
                 ),
               ColorSchemes.blue => ThemeData(
+                canvasColor: Color(0xffEAEBED),
                   scaffoldBackgroundColor: Color(0xffEAEBED),
                   colorScheme: ColorScheme.fromSwatch().copyWith(
                     primary: Color(0xff006989),
@@ -121,7 +120,8 @@ void main() {
                   cardTheme: CardTheme(color: Color(0xffA3BAC3)),
                   elevatedButtonTheme: ElevatedButtonThemeData(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xffEAEBED),
+                      backgroundColor: Color(0xffA3BAC3),
+                      textStyle: TextStyle(color: Colors.black),
                     ),
                   ),
                 ),

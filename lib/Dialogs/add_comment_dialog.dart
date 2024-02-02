@@ -19,7 +19,7 @@ class AddCommentDialog extends StatelessWidget {
     TextEditingController descriptionEditingController =
     TextEditingController();
     return AlertDialog(
-      title: const Text('Create a new Reminder'),
+      title: const Text('Post a comment'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
