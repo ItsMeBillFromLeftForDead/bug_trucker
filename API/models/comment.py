@@ -1,25 +1,28 @@
-import datetime as dt
+from sqlalchemy import func
+from sqlalchemy.orm import relationship
 
-from marshmallow import Schema, fields
+from models.shared_db import db, ma
 
 
-class Comment(object):
-    def __init__(self, commentID, bugID, date, description, reporter, image):
-        self.commentID = commentID
-        self.bugID = bugID
-        self.description = description
+class Comment(db.Model):
+    comment_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    bug_id = db.Column(db.Integer, db.ForeignKey('bug.bug_id'), nullable=False)
+    date = db.Column(db.DateTime(timezone=True), server_default=func.now())
+    description = db.Column(db.String(255))
+    reporter = db.Column(db.String(100))
+    image = db.Column(db.String(100))
+
+    def __init__(self, bug_id, date, reporter, image, description):
+        self.bug_id = bug_id
+        self.date = date
         self.reporter = reporter
         self.image = image
-        self.date = date
+        self.description = description
 
     def __repr__(self):
-        return '<Comment(name={self.commentID!r})>'.format(self=self)
+        return '<Bug(name={self.title!r})>'.format(self=self)
 
 
-class CommentSchema(Schema):
-    commentID = fields.Number()
-    bugID = fields.Number()
-    description = fields.Str()
-    reporter = fields.Str()
-    image = fields.Str()
-    date = fields.Date()
+class CommentSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Comment

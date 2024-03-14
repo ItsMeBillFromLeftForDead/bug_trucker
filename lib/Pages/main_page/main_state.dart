@@ -1,5 +1,4 @@
 import 'package:bug_trucker/DataTypes/bug.dart';
-import 'package:bug_trucker/DataTypes/demo_data.dart';
 
 class MainState {
   MainState({

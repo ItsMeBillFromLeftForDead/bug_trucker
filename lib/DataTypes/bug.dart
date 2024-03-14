@@ -31,7 +31,7 @@ class Bug {
   Map<String, dynamic> toJson() => {
     'id': id,
     'title': title,
-    'price': postedDate,
+    'postedDate': postedDate,
     'status': status,
     'description': description,
     'image': image,

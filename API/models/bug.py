@@ -1,11 +1,21 @@
 import datetime as dt
 
-from marshmallow import Schema, fields
+from sqlalchemy import func
+from sqlalchemy.orm import relationship
+
+from models.shared_db import db, ma
 
 
-class Bug(object):
-    def __init__(self, bugID, title, date, description, reporter, image, status):
-        self.bugID = bugID
+class Bug(db.Model):
+    bug_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String(100))
+    description = db.Column(db.String(255))
+    reporter = db.Column(db.String(100))
+    image = db.Column(db.String(100))
+    date = db.Column(db.DateTime(timezone=True), server_default=func.now())
+    status = db.Column(db.String(100))
+
+    def __init__(self, title, date, status, reporter, image, description):
         self.title = title
         self.description = description
         self.reporter = reporter
@@ -17,11 +27,6 @@ class Bug(object):
         return '<Bug(name={self.title!r})>'.format(self=self)
 
 
-class BugSchema(Schema):
-    bugID = fields.Number()
-    title = fields.Str()
-    description = fields.Str()
-    reporter = fields.Str()
-    image = fields.Str()
-    date = fields.Date()
-    Status = fields.Str()
+class BugSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Bug
